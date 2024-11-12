@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User  implements  Observer{
     private int id;
     private String name;
     private String email;
@@ -13,6 +13,15 @@ public class User {
         this.email=email;
         this.assignTasks= new ArrayList<>();
     }
+
+
+
+
+    @Override
+    public void update(Task task) {
+        System.out.println("Notification: Task " + task.getTitle() + " has been updated.");
+    }
+
     public void setId(int id){
         this.id=id;
     }

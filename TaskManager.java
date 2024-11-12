@@ -1,29 +1,17 @@
-public class TaskManager {
-    private Map<Integer, Task> tasks = new HashMap<>();
+public class TaskManager{
+    private static TaskManager instance;
+    private TaskManger(){
 
-    public Task createTask(String title, TaskType type, User creator) {
-        Task task;
-        int taskId = tasks.size() + 1;
-        switch (type) {
-            case FEATURE:
-                task = new FeatureTask(taskId, title, creator, "Feature summary", ImpactLevel.HIGH);
-                break;
-            case BUG:
-                task = new BugTask(taskId, title, creator, Severity.P1);
-                break;
-            case STORY:
-                task = new StoryTask(taskId, title, creator, "Story summary");
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid task type");
+    }
+    public static TaskManager getInstance(){
+        if(instance==null){
+            synchronized (TaskManager.class){
+                if(instance==null){
+                    instance= new TaskManager();
+                }
+            }
         }
-        tasks.put(taskId, task);
-        return task;
+        return  instance;
     }
 
-    public void updateTaskStatus(int taskId, TaskStatus status) {
-        if (tasks.containsKey(taskId)) {
-            tasks.get(taskId).updateStatus(status);
-        }
-    }
 }
