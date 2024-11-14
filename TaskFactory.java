@@ -1,15 +1,16 @@
 public class TaskFactory {
-    public static Task createTask(int id,String type,String title,User creator,ImpactLevel impactLevel){
-        switch (type){
-            case "Fature":
-                return new FeatureTask(id,title,creator,impactLevel);
-            case "Bug":
-                return new BugTask(title,creator);
-            case "Stroy":
-                return new StoryTask(title,creator);
-            default:
-                throw  new IllegalArgumentException("not a valid Task")
-        }
+    public static Task createFeatureTask(String title, User creator, int id, ImpactLevel impactLevel) {
+        return new FeatureTask.Builder(title, creator)
+                .id(id)
+                .impactLevel(impactLevel)
+                .build();
+    }
 
+    public static Task createBugTask(String title, User creator) {
+        return new BugTask(title, creator);
+    }
+
+    public static Task createStoryTask(String title, User creator) {
+        return new StoryTask(title, creator);
     }
 }
